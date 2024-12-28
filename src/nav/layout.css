@@ -1,7 +1,16 @@
 
-div {
-    height: 100%;
-    background-color: red;
+.main {
+    height: 100svh;
+    max-height: 1000px;
     display: grid;
-    grid-template-columns: max-content 1fr;
+    grid-template-columns: 200px 1fr;
+    color: #1A1A1A
+    
 }
+
+.main nav {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
