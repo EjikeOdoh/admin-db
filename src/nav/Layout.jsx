@@ -1,12 +1,13 @@
 import { NavLink, Outlet } from "react-router";
 import './layout.css'
 import { useDispatch } from "react-redux";
+import {logout } from "../store/slices/authSlice";
 
 export default function Layout() {
     const dispatch = useDispatch()
 
     function logOut() {
-        
+        dispatch(logout())
     }
 
     return <div className="main">
@@ -31,7 +32,7 @@ export default function Layout() {
                 <div>
                     <NavLink className="block mb-4" to="/settings">Settings</NavLink>
 
-                    <button className="block w-full text-left">Log out</button>
+                    <button onClick={logOut} className="block w-full text-left">Log out</button>
                 </div>
              
                     
