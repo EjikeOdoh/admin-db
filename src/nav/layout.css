@@ -1,0 +1,7 @@
+
+div {
+    height: 100%;
+    background-color: red;
+    display: grid;
+    grid-template-columns: max-content 1fr;
+}

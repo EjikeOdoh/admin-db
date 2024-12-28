@@ -1,23 +1,31 @@
-import { useState } from 'react'
-import { BrowserRouter, Routes, Route } from 'react-router'
-import Analytics from './pages/Analytics'
-import Dashboard from './pages/Dashboard'
-
-
+import { BrowserRouter, Routes, Route } from 'react-router';
+import ProtectedRoutes from './nav/ProjectedRoutes';
+import Login from './pages/Login';
+import Dashboard from './pages/Dashboard';
+import UserManagement from './pages/UserManagement';
+import Analytics from './pages/Analytics';
+import ProfileManagement from './pages/ProfileManagement';
+import Settings from './pages/Settings';
+import Layout from './nav/Layout';
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-      <BrowserRouter>
-        <Routes>
-          <Route></Route>
-        </Routes>
-        <h1 className='text-center text-5xl font-black text-black'>Vite + React</h1>
-        <Analytics />
-        <Dashboard />
-      </BrowserRouter>
-  )
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<ProtectedRoutes isAuthenticated={true} />}>
+          <Route element={<Layout />}>
+            <Route index element={<Dashboard />} /> 
+            <Route path="analytics" element={<Analytics />} />
+            <Route path="profile-management" element={<ProfileManagement />} />
+            <Route path="user-management" element={<UserManagement />} />
+            <Route path="settings" element={<Settings />} />
+          </Route>
+        </Route>
+
+        <Route path="/login" element={<Login />} />
+      </Routes>
+    </BrowserRouter>
+  );
 }
 
-export default App
+export default App;

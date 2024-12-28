@@ -17,3 +17,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  height: 100svh;
+  background-color: gainsboro;
+  max-height: 1000px;
+  max-width: 1440px;
+  margin-inline: auto;
+}

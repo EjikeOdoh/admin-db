@@ -1,3 +1,6 @@
 export default function Dashboard(){
-    return <h1>Dashboard</h1>
+
+    return <div className=" text-center"> 
+        <h1>Dashboard</h1>
+    </div>
 }
