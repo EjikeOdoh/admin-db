@@ -8,16 +8,15 @@ import ProfileManagement from './pages/ProfileManagement';
 import Settings from './pages/Settings';
 import Layout from './nav/Layout';
 import { useSelector } from 'react-redux';
-import { selectAuthState } from './store/slices/authSlice';
+import { selectToken } from './store/slices/tokenSlice';
 
 function App() {  
-  const authState = useSelector(selectAuthState)
-console.log(authState)
-
+  const token = useSelector(selectToken)
+  console.log(token)
   return (
     <BrowserRouter>
       <Routes> 
-        <Route path="/" element={<ProtectedRoutes isAuthenticated={authState} />}>
+        <Route path="/" element={<ProtectedRoutes isAuthenticated={token} />}>
           <Route element={<Layout />}>
             <Route index element={<Dashboard />} /> 
             <Route path="analytics" element={<Analytics />} />

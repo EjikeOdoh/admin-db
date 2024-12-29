@@ -19,9 +19,9 @@
 
 body {
   height: 100svh;
-  background-color: gainsboro;
+  background-color: #1B1B2F;
   max-height: 1000px;
   max-width: 1440px;
   margin-inline: auto;
-  color: #1a1a1a
+  color: #1A1A1A
 }
