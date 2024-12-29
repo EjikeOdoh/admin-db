@@ -27,6 +27,9 @@ export default function Login() {
             dispatch(setToken(access_token))
             navigate('/')
         } catch (error) {
+            if (error.status === 401) {
+                alert(error?.response?.data?.message)
+            }
             console.error("Login error:", error);
         } finally {
             setEmail("")
