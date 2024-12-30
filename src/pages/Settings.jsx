@@ -1,3 +1,7 @@
+import Salutation from "../components/Salutation";
+
 export default function Settings(){
-    return <h1>Settings</h1>
+    return <div>
+        <Salutation title="Settings" />
+    </div>
 }

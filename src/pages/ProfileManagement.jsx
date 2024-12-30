@@ -1,3 +1,7 @@
+import Salutation from "../components/Salutation";
+
 export default function ProfileManagement(){
-    return <h1>Profile Management</h1>
+    return <div>
+        <Salutation title="Profile Management" />
+        </div>
 }

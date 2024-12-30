@@ -25,6 +25,7 @@ export default function Login() {
             console.log(data)
             dispatch(setUser(user))
             dispatch(setToken(access_token))
+            localStorage.setItem("token", access_token)
             navigate('/')
         } catch (error) {
             if (error.status === 401) {
@@ -41,28 +42,28 @@ export default function Login() {
     return (
         <div className="login">
             <form
-                className="w-1/3 p-4 py-8 border-white border rounded-md grid gap-5"
+                className="md:w-1/3 p-4 py-8 grid gap-5"
                 onSubmit={login}
             >
-                <h1 className="text-4xl font-bold text-[#FFD700]">Exam Rush</h1>
+                <h1 className="text-4xl font-bold text-[#FFD700] mx-auto">Logo</h1>
                 <div className="mb-5 space-y-4">
                     <div className="w-full grid gap-y-1">
-                        <label htmlFor="email">Email</label>
+                        <label className="text-white font-semibold" htmlFor="email">Email</label>
                         <input
                             id="email"
                             type="email"
-                            className="w-full h-12 p-2 px-4 rounded-md outline-none text-black"
+                            className="w-full h-10 md:h-12 p-2 px-4 rounded-md outline-none text-[#1A1A1A]"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
                     <div className="w-full grid gap-y-1">
-                        <label htmlFor="password">Password</label>
+                        <label className="text-white font-semibold" htmlFor="password">Password</label>
                         <input
                             id="password"
                             type="password"
-                            className="w-full h-12 p-2 px-4 rounded-md outline-none"
+                            className="w-full h-10 md:h-12 p-2 px-4 rounded-md outline-none text-[#1A1A1A]"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
                             required
@@ -70,10 +71,8 @@ export default function Login() {
                     </div>
                 </div>
 
-                <Button ></Button>
-
                 <button
-                    className={`block w-1/2 mx-auto p-4 rounded-md ${isLoading ? "bg-gray-400" : "bg-[#FFD700]"
+                    className={`block w-full mx-auto p-2 rounded-md ${isLoading ? "bg-gray-400" : "bg-[#FFD700]"
                         }`}
                     type="submit"
                     disabled={isLoading}

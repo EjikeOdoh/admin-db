@@ -11,9 +11,9 @@ const api = axios.create({
 let token
 api.interceptors.request.use(
   async config => {
-    // const token = (await getToken()) || '';
+    const token = await localStorage.getItem("token") || '';
     if (token) {
-      config.headers.Authorization = token;
+      config.headers.Authorization = `Bearer ${token}`;
     }
     return config;
   },

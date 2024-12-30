@@ -12,8 +12,9 @@ export default function Salutation({ title }) {
             return "Good Night!";
         }
     }
-    return <div>
-        <h1>{title }</h1>
-        <p>{getGreeting()}</p>
+    return <div className="mb-8"
+    >
+        <h1 className="text-3xl font-bold">{title }</h1>
+        <p className="font-semibold text-xl">{getGreeting()}</p>
     </div>
 }

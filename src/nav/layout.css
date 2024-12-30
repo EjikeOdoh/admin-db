@@ -4,7 +4,7 @@
     max-height: 1000px;
     display: grid;
     grid-template-columns: max-content 1fr;
-    color: #1A1A1A;
+    color: white;
 }
 
 .main nav {
@@ -19,5 +19,5 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    /* place-content: center; */
 }
+
