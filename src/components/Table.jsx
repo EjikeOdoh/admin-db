@@ -1,81 +1,109 @@
-// import React from 'react';
-// import { useReactTable } from '@tanstack/react-table';
+import React from 'react';
+import Paper from '@mui/material/Paper';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TablePagination from '@mui/material/TablePagination';
+import TableRow from '@mui/material/TableRow';
+import Box from '@mui/material/Box';
 
-// export default function Table({ columns, data, totalPages, currentPage, setPageIndex, fetchPage }) {
-//   const {
-//     getTableProps,
-//     getTableBodyProps,
-//     headerGroups,
-//     rows,
-//     prepareRow,
-//     canPreviousPage,
-//     canNextPage,
-//     pageIndex,
-//     pageCount,
-//     gotoPage,
-//     nextPage,
-//     previousPage,
-//   } = useReactTable(
-//     {
-//       columns,
-//       data,
-//       initialState: {
-//         pageIndex: currentPage,
-//         pageSize: 5,
-//       },
-//       manualPagination: true,
-//       pageCount: totalPages,
-//       autoResetPage: false,
-//     }
-//   );
+const StickyHeader = ({ arr, columns, actions }) => {
+    const [page, setPage] = React.useState(0);
+    const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-//   // Use the `usePagination` functionality directly within `useTable`
-//   const handlePageChange = (newPageIndex) => {
-//     setPageIndex(newPageIndex);
-//     fetchPage(newPageIndex);
-//   };
+    // Handles pagination change
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
 
-//   return (
-//     <div>
-//       <table {...getTableProps()} className="table-auto w-full border-collapse">
-//         <thead>
-//           {headerGroups.map((headerGroup) => (
-//             <tr {...headerGroup.getHeaderGroupProps()}>
-//               {headerGroup.headers.map((column) => (
-//                 <th {...column.getHeaderProps()} className="px-4 py-2 border-b">
-//                   {column.render('Header')}
-//                 </th>
-//               ))}
-//             </tr>
-//           ))}
-//         </thead>
-//         <tbody {...getTableBodyProps()}>
-//           {rows.map((row) => {
-//             prepareRow(row);
-//             return (
-//               <tr {...row.getRowProps()}>
-//                 {row.cells.map((cell) => (
-//                   <td {...cell.getCellProps()} className="px-4 py-2 border-b">
-//                     {cell.render('Cell')}
-//                   </td>
-//                 ))}
-//               </tr>
-//             );
-//           })}
-//         </tbody>
-//       </table>
+    // Handles rows-per-page change
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(+event.target.value);
+        setPage(0);
+    };
 
-//       <div className="pagination mt-4 flex justify-between items-center">
-//         <button onClick={() => handlePageChange(pageIndex - 1)} disabled={!canPreviousPage}>
-//           Previous
-//         </button>
-//         <span>
-//           Page {pageIndex + 1} of {pageCount}
-//         </span>
-//         <button onClick={() => handlePageChange(pageIndex + 1)} disabled={!canNextPage}>
-//           Next
-//         </button>
-//       </div>
-//     </div>
-//   );
-// }
+    return (
+        <Paper sx={{ width: '100%', overflow: 'hidden' }}>
+            <TableContainer sx={{ maxHeight: '100%' }}>
+                <Table stickyHeader aria-label="sticky table" sx={{
+                    '& .MuiTableCell-stickyHeader': {
+                        backgroundColor: '#1976d2',
+                        color: '#fff',
+                        fontWeight: 'bold',
+                    },
+                    '& .MuiTableRow-hover:hover': {
+                        backgroundColor: '#f5f5f5',
+                    },
+                }}>
+                    <TableHead>
+                        <TableRow>
+                            {/* Render column headers dynamically */}
+                            {columns.map((column) => (
+                                <TableCell
+                                    key={column.id}
+                                    align={column.align || 'left'}
+                                    style={{ minWidth: column.minWidth || 100 }}
+                                >
+                                    {column.label}
+                                </TableCell>
+                            ))}
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {/* Paginate rows */}
+                        {arr
+                            .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                            .map((row, index) => (
+                                <TableRow hover role="checkbox" tabIndex={-1} key={index}>
+                                    {/* Render cells dynamically */}
+                                    {columns.map((column) => {
+                                        // Handle 'actions' column separately
+                                        if (column.id === 'actions') {
+                                            return (
+                                                <TableCell key={column.id} align={column.align || 'left'}>
+                                                    <Box
+                                                        sx={{
+                                                            display: 'flex',
+                                                            justifyContent: 'center',
+                                                            gap: 1,
+                                                        }}
+                                                    >
+                                                        {actions.map((action, actionIndex) => (
+                                                            <action.Component
+                                                                key={actionIndex}
+                                                                {...action.props(row)}
+                                                            />
+                                                        ))}
+                                                    </Box>
+                                                </TableCell>
+                                            );
+                                        }
+                                        // Render other cells
+                                        const value = row[column.id];
+                                        return (
+                                            <TableCell key={column.id} align={column.align || 'left'}>
+                                                {value}
+                                            </TableCell>
+                                        );
+                                    })}
+                                </TableRow>
+                            ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+            <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={arr.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+            />
+        </Paper>
+    );
+};
+
+export default StickyHeader;

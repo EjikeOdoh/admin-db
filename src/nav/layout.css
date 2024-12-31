@@ -1,7 +1,6 @@
 
 .main {
     height: 100svh;
-    max-height: 1000px;
     display: grid;
     grid-template-columns: max-content 1fr;
     color: white;
@@ -15,7 +14,6 @@
 
 .login {
     height: 100svh;
-    max-height: 1000px;
     display: flex;
     justify-content: center;
     align-items: center;

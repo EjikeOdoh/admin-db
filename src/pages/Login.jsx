@@ -42,7 +42,7 @@ export default function Login() {
     return (
         <div className="login">
             <form
-                className="md:w-1/3 p-4 py-8 grid gap-5"
+                className="w-full md:w-1/3 p-4 py-8 grid gap-5"
                 onSubmit={login}
             >
                 <h1 className="text-4xl font-bold text-[#FFD700] mx-auto">Logo</h1>
